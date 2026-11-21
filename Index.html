@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halima & Mazeen — Nikah & Walima Invitation</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Amiri (Arabic Calligraphy), Cormorant Garamond, Great Vibes, and Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti for Celebration Effect -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* Custom Theme Variables & Typography */
+        :root {
+            --bg-gradient: radial-gradient(circle at center, #2c1e16 0%, #140d09 100%);
+            --env-outer: #8c2f39;
+            --env-inner: #5e1b22;
+            --env-flap: #9e3540;
+            --env-pocket-left: #822a33;
+            --env-pocket-right: #78252d;
+            --env-pocket-bottom: #8f303a;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f3e5ab;
+            --card-bg: #fdfbf7;
+            --card-text: #2c221e;
+            --card-subtext: #6e5a4f;
+            --seal-bg: radial-gradient(circle at 30% 30%, #f5d77f, #c59b27, #8a6608);
+        }
+
+        /* Theme 2: Emerald & Gold */
+        [data-theme="emerald"] {
+            --bg-gradient: radial-gradient(circle at center, #0f2922 0%, #061410 100%);
+            --env-outer: #144536;
+            --env-inner: #0b2920;
+            --env-flap: #195240;
+            --env-pocket-left: #113d2f;
+            --env-pocket-right: #0e3327;
+            --env-pocket-bottom: #164a3a;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f7e9b7;
+            --card-bg: #fcfaf5;
+            --card-text: #132a22;
+            --card-subtext: #4a665c;
+            --seal-bg: radial-gradient(circle at 30% 30%, #f5d77f, #c59b27, #8a6608);
+        }
+
+        /* Theme 3: Midnight Navy & Silver/Gold */
+        [data-theme="midnight"] {
+            --bg-gradient: radial-gradient(circle at center, #141e30 0%, #090e17 100%);
+            --env-outer: #1c2b45;
+            --env-inner: #101929;
+            --env-flap: #223454;
+            --env-pocket-left: #18253b;
+            --env-pocket-right: #141f33;
+            --env-pocket-bottom: #1e2e4a;
+            --accent-gold: #e0c068;
+            --accent-gold-light: #fff3cc;
+            --card-bg: #f8f9fa;
+            --card-text: #162238;
+            --card-subtext: #4f5d75;
+            --seal-bg: radial-gradient(circle at 30% 30%, #f7e199, #cfa43a, #8c6a14);
+        }
+
+        /* Theme 4: Blush Rose & Champagne */
+        [data-theme="blush"] {
+            --bg-gradient: radial-gradient(circle at center, #4a3538 0%, #24181a 100%);
+            --env-outer: #d4a5a5;
+            --env-inner: #a87b7b;
+            --env-flap: #deb2b2;
+            --env-pocket-left: #cca0a0;
+            --env-pocket-right: #c29595;
+            --env-pocket-bottom: #d9adad;
+            --accent-gold: #b8860b;
+            --accent-gold-light: #fff8e7;
+            --card-bg: #fffcfc;
+            --card-text: #4a2c2c;
+            --card-subtext: #7d5a5a;
+            --seal-bg: radial-gradient(circle at 30% 30%, #f3d299, #c49245, #8a5d1b);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-gradient);
+            color: #fff;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            transition: background 0.8s ease;
+        }
+
+        .font-serif-luxury {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .font-script {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .font-arabic {
+            font-family: 'Amiri', serif;
+        }
+
+        /* Subtle Linen / Paper Texture Overlay */
+        .paper-texture {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 0),
+                              radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 0);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        .card-paper-texture {
+            background-color: var(--card-bg);
+            background-image: radial-gradient(rgba(180, 150, 100, 0.08) 1px, transparent 0);
+            background-size: 16px 16px;
+        }
+
+        /* Ambient Floating Particles */
+        #particles-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent-gold-light);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.6;
+            }
+            80% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* 3D Full-Screen Envelope Stage */
+        .stage {
+            perspective: 1800px;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Envelope Wrapper */
+        .envelope-wrapper {
+            position: relative;
+            width: min(92vw, 680px);
+            height: min(64vh, 450px);
+            transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .envelope-wrapper.opened {
+            transform: translateY(22vh) scale(0.92);
+            cursor: default;
+        }
+
+        @media (max-width: 640px) {
+            .envelope-wrapper {
+                width: 92vw;
+                height: 52vh;
+            }
+            .envelope-wrapper.opened {
+                transform: translateY(26vh) scale(0.95);
+            }
+        }
+
+        /* Envelope Back */
+        .envelope-back {
+            position: absolute;
+            inset: 0;
+            background: var(--env-inner);
+            border-radius: 12px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(212, 175, 55, 0.3);
+            transition: background 0.6s ease;
+        }
+
+        /* Inner Gold Foil Liner */
+        .envelope-liner {
+            position: absolute;
+            inset: 6px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(255, 243, 204, 0.08) 50%, rgba(212, 175, 55, 0.25) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            overflow: hidden;
+        }
+
+        /* Decorative Botanical Pattern inside Envelope Liner */
+        .envelope-liner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.18;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 C35 15, 45 20, 55 30 C45 40, 35 45, 30 55 C25 45, 15 40, 5 30 C15 20, 25 15, 30 5 Z' fill='none' stroke='%23d4af37' stroke-width='1'/%3E%3Ccircle cx='30' cy='30' r='3' fill='%23d4af37'/%3E%3C/svg%3E");
+            background-size: 48px 48px;
+        }
+
+        /* Invitation Card inside Envelope */
+        .invitation-card {
+            position: absolute;
+            left: 5%;
+            right: 5%;
+            top: 6%;
+            bottom: 6%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            z-index: 2;
+            transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+                        height 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 1.1s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* When envelope opens, card slides out and expands upward to fill screen nicely */
+        .envelope-wrapper.opened .invitation-card {
+            transform: translateY(-49vh);
+            height: 82vh;
+            z-index: 20;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(212, 175, 55, 0.5);
+        }
+
+        @media (max-width: 640px) {
+            .envelope-wrapper.opened .invitation-card {
+                transform: translateY(-48vh);
+                height: 81vh;
+                left: 2%;
+                right: 2%;
+            }
+        }
+
+        /* Gold Foil Border inside Card */
+        .gold-border-frame {
+            border: 1.5px solid var(--accent-gold);
+            position: relative;
+            height: 100%;
+            border-radius: 6px;
+        }
+        .gold-border-frame::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 0.5px solid rgba(212, 175, 55, 0.5);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        /* Envelope Front Pocket Flaps (Left, Right, Bottom) */
+        .envelope-pocket {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            pointer-events: none;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .flap-left {
+            position: absolute;
+            inset: 0;
+            background: var(--env-pocket-left);
+            clip-path: polygon(0 0, 52% 52%, 0 100%);
+            transition: background 0.6s ease;
+        }
+
+        .flap-right {
+            position: absolute;
+            inset: 0;
+            background: var(--env-pocket-right);
+            clip-path: polygon(100% 0, 48% 52%, 100% 100%);
+            transition: background 0.6s ease;
+        }
+
+        .flap-bottom {
+            position: absolute;
+            inset: 0;
+            background: var(--env-pocket-bottom);
+            clip-path: polygon(0 100%, 50% 46%, 100% 100%);
+            box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.3);
+            transition: background 0.6s ease;
+        }
+
+        /* Gold Trim along pocket edges */
+        .pocket-gold-lines {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        /* Top Envelope Flap */
+        .flap-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 58%;
+            background: var(--env-flap);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.2s linear 0.35s, background 0.6s ease;
+            z-index: 10;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4));
+        }
+
+        .envelope-wrapper.opened .flap-top {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* Wax Seal Button */
+        .wax-seal {
+            position: absolute;
+            top: 54%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            background: var(--seal-bg);
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5),
+                        inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                        inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+            border: 3px solid rgba(255, 235, 175, 0.45);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+            cursor: pointer;
+        }
+
+        .wax-seal::before {
+            content: '';
+            position: absolute;
+            inset: 7px;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(90, 60, 5, 0.55);
+        }
+
+        .envelope-wrapper:not(.opened):hover .wax-seal {
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .envelope-wrapper.opened .wax-seal {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+
+        /* Subtle Pulse Ring around Wax Seal */
+        .seal-pulse {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1.5px solid var(--accent-gold);
+            animation: pulseRing 2.4s infinite ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes pulseRing {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.35); opacity: 0; }
+        }
+
+        /* Custom Scrollbar inside Card */
+        .card-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .card-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .card-scroll::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.4);
+            border-radius: 10px;
+        }
+
+        /* Shimmer Text Effect */
+        .gold-shimmer {
+            background: linear-gradient(90deg, #b8860b 0%, #f3e5ab 45%, #d4af37 55%, #996515 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+    </style>
+</head>
+<body data-theme="blush">
+
+    <!-- Floating Golden Dust Particles -->
+    <div id="particles-container"></div>
+
+    <!-- Top Floating Controls Bar -->
+    <header class="fixed top-0 left-0 right-0 z-40 flex items-center justify-end px-4 py-3 sm:px-8 pointer-events-none">
+        <!-- Right Controls: Seal Envelope & Share -->
+        <div class="pointer-events-auto flex items-center gap-2">
+            <button id="close-env-btn" onclick="closeEnvelope()" class="hidden items-center gap-1.5 bg-black/45 hover:bg-black/65 backdrop-blur-md border border-amber-400/40 text-amber-200 text-xs uppercase tracking-wider px-3.5 py-2 rounded-full shadow-lg transition">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Seal Envelope</span>
+            </button>
+            <button onclick="shareInvite()" class="flex items-center gap-1.5 bg-black/45 hover:bg-black/65 backdrop-blur-md border border-white/20 text-white/90 text-xs uppercase tracking-wider px-3.5 py-2 rounded-full shadow-lg transition">
+                <i class="fa-solid fa-share-nodes text-amber-300"></i>
+                <span>Share</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main 3D Envelope Stage -->
+    <main class="stage">
+        <div id="envelope" class="envelope-wrapper" onclick="openEnvelope()">
+
+            <!-- Back of Envelope & Inner Botanical Gold Liner -->
+            <div class="envelope-back paper-texture">
+                <div class="envelope-liner"></div>
+            </div>
+
+            <!-- The Wedding Invitation Card Inside -->
+            <article id="invitation-card" class="invitation-card card-paper-texture p-2.5 sm:p-4" onclick="event.stopPropagation()">
+                <div class="gold-border-frame flex flex-col justify-between overflow-hidden">
+
+                    <!-- Decorative Corner Flourishes (SVG) -->
+                    <svg class="absolute top-2 left-2 w-10 h-10 text-amber-600/50 pointer-events-none" viewBox="0 0 64 64" fill="none">
+                        <path d="M4 60V16C4 9.37258 9.37258 4 16 4H60" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 44V20C12 15.5817 15.5817 12 20 12H44" stroke="currentColor" stroke-width="1"/>
+                        <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+                    </svg>
+                    <svg class="absolute top-2 right-2 w-10 h-10 text-amber-600/50 pointer-events-none rotate-90" viewBox="0 0 64 64" fill="none">
+                        <path d="M4 60V16C4 9.37258 9.37258 4 16 4H60" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 44V20C12 15.5817 15.5817 12 20 12H44" stroke="currentColor" stroke-width="1"/>
+                        <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+                    </svg>
+                    <svg class="absolute bottom-2 left-2 w-10 h-10 text-amber-600/50 pointer-events-none -rotate-90" viewBox="0 0 64 64" fill="none">
+                        <path d="M4 60V16C4 9.37258 9.37258 4 16 4H60" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 44V20C12 15.5817 15.5817 12 20 12H44" stroke="currentColor" stroke-width="1"/>
+                        <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+                    </svg>
+                    <svg class="absolute bottom-2 right-2 w-10 h-10 text-amber-600/50 pointer-events-none rotate-180" viewBox="0 0 64 64" fill="none">
+                        <path d="M4 60V16C4 9.37258 9.37258 4 16 4H60" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M12 44V20C12 15.5817 15.5817 12 20 12H44" stroke="currentColor" stroke-width="1"/>
+                        <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+                    </svg>
+
+                    <!-- Scrollable Inner Content -->
+                    <div class="card-scroll overflow-y-auto px-4 py-5 sm:px-9 sm:py-7 text-center flex-1 flex flex-col items-center justify-between" style="color: var(--card-text);">
+
+                        <!-- Top Header & Event Switcher -->
+                        <div class="w-full">
+                            <!-- Bismillah Calligraphy -->
+                            <p class="font-arabic text-2xl sm:text-3xl text-amber-800/90 mb-1 tracking-wide" dir="rtl">
+                                بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+                            </p>
+
+                            <!-- Nikah / Walima Switcher Pill -->
+                            <div class="inline-flex items-center p-1 rounded-full bg-amber-900/10 border border-amber-700/25 mb-3">
+                                <button type="button" onclick="switchCeremony('nikah')" id="btn-ceremony-nikah" class="px-3.5 py-1 rounded-full text-[11px] uppercase tracking-wider font-semibold bg-amber-800 text-amber-50 shadow transition">
+                                    Nikah (Nov 27)
+                                </button>
+                                <button type="button" onclick="switchCeremony('walima')" id="btn-ceremony-walima" class="px-3.5 py-1 rounded-full text-[11px] uppercase tracking-wider font-semibold text-amber-950/75 hover:text-amber-950 transition">
+                                    Walima (Nov 28)
+                                </button>
+                            </div>
+
+                            <!-- Host Name -->
+                            <h2 class="font-script text-2xl sm:text-3xl text-amber-900 leading-snug" id="display-host">
+                                Mr. Noor Mohammed Ansari
+                            </h2>
+
+                            <p class="text-[11px] sm:text-xs italic font-serif-luxury max-w-md mx-auto leading-snug mb-2" style="color: var(--card-subtext);" id="display-invite-line">
+                                Cordially invites you with family on the auspicious occasion of the Wedding Ceremony of
+                            </p>
+
+                            <!-- Primary Person -->
+                            <div>
+                                <h1 class="font-script text-4xl sm:text-5xl leading-none gold-shimmer" id="display-person1">
+                                    Halima
+                                </h1>
+                                <p class="text-[11px] sm:text-xs font-serif-luxury italic mt-0.5" style="color: var(--card-subtext);" id="display-person1-parent">
+                                    (D/o. Mr. Noor Mohammed Ansari)
+                                </p>
+                            </div>
+
+                            <!-- Ornamental Divider -->
+                            <div class="flex items-center justify-center gap-2.5 my-1">
+                                <span class="h-[1px] w-10 sm:w-16 bg-amber-600/40"></span>
+                                <span class="font-serif-luxury italic text-sm text-amber-800 font-semibold" id="display-connector">weds</span>
+                                <span class="h-[1px] w-10 sm:w-16 bg-amber-600/40"></span>
+                            </div>
+
+                            <!-- Secondary Person -->
+                            <div>
+                                <h1 class="font-script text-4xl sm:text-5xl leading-none gold-shimmer" id="display-person2">
+                                    Mazeen
+                                </h1>
+                                <p class="text-[11px] sm:text-xs font-serif-luxury italic mt-0.5" style="color: var(--card-subtext);" id="display-person2-parent">
+                                    (S/o. Mr. Mehmood SahiboIe)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Event Date, Hijri Date, Timing & Venue Box -->
+                        <div class="w-full my-3.5 py-3.5 px-3 border-y border-amber-600/30 bg-amber-500/[0.04] rounded-xl space-y-2">
+                            <p class="font-script text-2xl sm:text-3xl text-amber-900 leading-none" id="display-event-title">
+                                Nikah &amp; Reception Dinner
+                            </p>
+
+                            <!-- Gregorian & Hijri Date -->
+                            <div class="pt-1">
+                                <p class="font-serif-luxury text-base sm:text-lg font-bold tracking-wider uppercase" id="display-date">
+                                    FRIDAY | 27 | NOVEMBER, 2026
+                                </p>
+                                <p class="font-serif-luxury italic text-xs sm:text-sm text-amber-800" id="display-hijri">
+                                    17 Jumadil Akhir 1448 (Hijri)
+                                </p>
+                            </div>
+
+                            <!-- Timing -->
+                            <div class="text-xs sm:text-sm font-serif-luxury font-medium" style="color: var(--card-text);">
+                                <i class="fa-regular fa-clock text-amber-700 mr-1"></i>
+                                <span id="display-time">After Magrib • 7:00 p.m. to 11:00 p.m.</span>
+                            </div>
+
+                            <!-- Venue Address -->
+                            <div class="pt-1.5 border-t border-amber-600/15">
+                                <span class="block font-script text-xl text-amber-900 leading-none mb-0.5">Venue</span>
+                                <p class="font-serif-luxury text-xs sm:text-sm font-semibold leading-snug max-w-md mx-auto" id="display-venue">
+                                    Ahmed Lawn, Opp. Dosti Planet North, Near Nayra Petrol Pump, Shibli Nagar, Mumbra, Thane-400612
+                                </p>
+
+                                <!-- Google Maps Action Buttons -->
+                                <div class="mt-2 flex flex-wrap items-center justify-center gap-2">
+                                    <a id="display-map-link" href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJyW6aVQC_5zsRwG-l493ErtE" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-800/10 hover:bg-amber-800/20 text-amber-950 border border-amber-700/30 text-[11px] font-medium transition">
+                                        <i class="fa-solid fa-location-dot text-red-700"></i>
+                                        <span>Open in Google Maps</span>
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-70"></i>
+                                    </a>
+                                    <button type="button" onclick="toggleMapPreview()" id="toggle-map-btn" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-800/10 hover:bg-amber-800/20 text-amber-950 border border-amber-700/30 text-[11px] font-medium transition">
+                                        <i class="fa-regular fa-map text-amber-800"></i>
+                                        <span>Show Map</span>
+                                    </button>
+                                </div>
+
+                                <!-- Collapsible Embedded Map Preview -->
+                                <div id="map-preview-box" class="hidden mt-2.5 max-w-md mx-auto overflow-hidden rounded-xl border border-amber-700/30 shadow-inner bg-amber-100/40">
+                                    <iframe id="venue-map-iframe" title="Venue Location Map" class="w-full h-36 sm:h-44 border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Ahmed%20Wedding%20Lawn,%20Dosti%20Planet%20N%20Rd,%20Shibli%20Nagar,%20Mumbra,%20Thane&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Tabs: Schedule & RSVP -->
+                        <div class="w-full max-w-md mx-auto">
+                            <div class="flex justify-center gap-2 mb-3">
+                                <button onclick="switchCardTab('events')" id="tab-events" class="px-4 py-1 rounded-full text-[11px] uppercase tracking-wider font-medium bg-amber-700 text-white shadow transition">
+                                    Both Events
+                                </button>
+                                <button onclick="switchCardTab('rsvp')" id="tab-rsvp" class="px-4 py-1 rounded-full text-[11px] uppercase tracking-wider font-medium border border-amber-700/40 text-amber-900 hover:bg-amber-700/10 transition">
+                                    RSVP Now
+                                </button>
+                            </div>
+
+                            <!-- Both Events Summary Section -->
+                            <div id="panel-events" class="text-left space-y-2 text-xs bg-white/65 p-3 rounded-xl border border-amber-600/20">
+                                <div onclick="switchCeremony('nikah')" class="cursor-pointer flex justify-between items-start gap-2 border-b border-amber-600/15 pb-2 hover:bg-amber-50/70 p-1 rounded transition">
+                                    <div>
+                                        <p class="font-semibold font-serif-luxury text-sm text-amber-950">1. Nikah Ceremony (Bride's Side)</p>
+                                        <p class="text-[11px]" style="color: var(--card-subtext);">Ahmed Lawn, Shibli Nagar, Mumbra</p>
+                                    </div>
+                                    <div class="flex flex-col items-end gap-1 shrink-0">
+                                        <span class="font-medium text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full text-[10px]">Fri, Nov 27</span>
+                                        <a href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJyW6aVQC_5zsRwG-l493ErtE" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-[10px] text-amber-800 hover:text-amber-950 underline flex items-center gap-1">
+                                            <i class="fa-solid fa-location-dot text-red-700"></i>Map
+                                        </a>
+                                    </div>
+                                </div>
+                                <div onclick="switchCeremony('walima')" class="cursor-pointer flex justify-between items-start gap-2 hover:bg-amber-50/70 p-1 rounded transition">
+                                    <div>
+                                        <p class="font-semibold font-serif-luxury text-sm text-amber-950">2. Walima &amp; Reception (Groom's Side)</p>
+                                        <p class="text-[11px]" style="color: var(--card-subtext);">Charminar Lawns, Mumbra Bypass Rd</p>
+                                    </div>
+                                    <div class="flex flex-col items-end gap-1 shrink-0">
+                                        <span class="font-medium text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full text-[10px]">Sat, Nov 28</span>
+                                        <a href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJ9U4uHE2_5zsR25T3IUEoEx0" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-[10px] text-amber-800 hover:text-amber-950 underline flex items-center gap-1">
+                                            <i class="fa-solid fa-location-dot text-red-700"></i>Map
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RSVP Form Section -->
+                            <form id="panel-rsvp" onsubmit="handleRSVP(event)" class="hidden text-left space-y-2 bg-white/80 p-3.5 rounded-xl border border-amber-600/20">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <input type="text" id="rsvp-name" required placeholder="Your Full Name" class="w-full px-3 py-1.5 text-xs rounded-lg border border-amber-700/25 bg-white focus:outline-none focus:border-amber-600">
+                                    <select id="rsvp-guests" class="w-full px-3 py-1.5 text-xs rounded-lg border border-amber-700/25 bg-white focus:outline-none focus:border-amber-600">
+                                        <option value="1">1 Guest Attending</option>
+                                        <option value="2" selected>2 Guests Attending</option>
+                                        <option value="3">3 Guests Attending</option>
+                                        <option value="4">4+ Family Members</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-3 text-[11px] pt-0.5">
+                                    <label class="flex items-center gap-1.5 cursor-pointer">
+                                        <input type="checkbox" checked class="accent-amber-700">
+                                        <span>Nikah (Nov 27)</span>
+                                    </label>
+                                    <label class="flex items-center gap-1.5 cursor-pointer">
+                                        <input type="checkbox" checked class="accent-amber-700">
+                                        <span>Walima (Nov 28)</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="w-full py-1.5 rounded-lg bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-800 hover:to-amber-700 text-white text-xs uppercase tracking-widest font-medium shadow-md transition">
+                                    Send Blessings &amp; RSVP
+                                </button>
+                            </form>
+
+                            <!-- RSVP Confirmation Message Box -->
+                            <div id="rsvp-success" class="hidden p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs text-center space-y-1">
+                                <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>
+                                <p class="font-semibold text-sm" id="rsvp-thanks-title">JazakAllah Khair for your RSVP!</p>
+                                <p class="text-emerald-700">We look forward to celebrating with you and your family.</p>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Compliments & Share Action -->
+                        <div class="w-full mt-3 pt-2 border-t border-amber-600/15 flex flex-wrap items-center justify-between gap-2 text-[11px]" style="color: var(--card-subtext);">
+                            <span class="italic font-serif-luxury text-xs">With Best Compliments From All Family, Relatives &amp; Friends</span>
+                            <button onclick="copyInviteLink()" class="text-amber-800 hover:text-amber-950 font-medium underline underline-offset-2">
+                                <i class="fa-regular fa-copy mr-1"></i>Copy Invite
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Front Envelope Pocket Flaps -->
+            <div class="envelope-pocket paper-texture">
+                <div class="flap-left"></div>
+                <div class="flap-right"></div>
+                <div class="flap-bottom"></div>
+                <!-- Subtle Gold Foil Piping along Envelope Seams -->
+                <svg class="pocket-gold-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <polyline points="0,0 50,52 100,0" fill="none" stroke="rgba(212,175,55,0.35)" stroke-width="0.4" />
+                    <polyline points="0,100 50,46 100,100" fill="none" stroke="rgba(212,175,55,0.45)" stroke-width="0.5" />
+                </svg>
+            </div>
+
+            <!-- Front Envelope Recipient Callout (Visible before opening) -->
+            <div id="envelope-front-label" class="absolute bottom-6 left-0 right-0 z-10 text-center pointer-events-none transition-opacity duration-500">
+                <p class="text-[10px] uppercase tracking-[0.35em] text-amber-200/80 mb-1">Nikah &amp; Walima Invitation</p>
+                <p class="font-script text-2xl sm:text-3xl text-amber-100 drop-shadow" id="envelope-monogram-names">Halima &amp; Mazeen</p>
+            </div>
+
+            <!-- Top Hinged Flap -->
+            <div class="flap-top paper-texture">
+                <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <polyline points="0,0 50,100 100,0" fill="none" stroke="rgba(212,175,55,0.55)" stroke-width="0.6" />
+                </svg>
+            </div>
+
+            <!-- Gold Embossed Wax Seal -->
+            <button type="button" aria-label="Open Wedding Invitation" class="wax-seal" onclick="openEnvelope()">
+                <span class="seal-pulse"></span>
+                <span class="font-serif-luxury font-bold text-2xl text-amber-950 tracking-tighter select-none" id="seal-initials">
+                    H&amp;M
+                </span>
+            </button>
+        </div>
+
+        <!-- Bottom Tap Prompt -->
+        <p id="tap-hint" class="fixed bottom-6 left-0 right-0 text-center text-xs uppercase tracking-[0.3em] text-amber-200/75 animate-pulse pointer-events-none z-20">
+            Tap the wax seal to open your invitation
+        </p>
+    </main>
+
+    <!-- Toast Notification Banner -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black/85 backdrop-blur-md text-amber-100 border border-amber-400/40 px-5 py-2.5 rounded-full text-xs tracking-wider shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300">
+        Copied invitation details to clipboard!
+    </div>
+
+    <script>
+        let isEnvelopeOpen = false;
+        let currentCeremony = 'nikah';
+
+        // Data extracted directly from your Nikah & Walima invitation cards
+        const ceremonyData = {
+            nikah: {
+                host: 'Mr. Noor Mohammed Ansari',
+                inviteLine: 'Cordially invites you with family on the auspicious occasion of the Wedding Ceremony of',
+                person1: 'Halima',
+                person1Parent: '(D/o. Mr. Noor Mohammed Ansari)',
+                connector: 'weds',
+                person2: 'Mazeen',
+                person2Parent: '(S/o. Mr. Mehmood SahiboIe)',
+                eventTitle: 'Nikah & Reception Dinner',
+                date: 'FRIDAY | 27 | NOVEMBER, 2026',
+                hijri: '17 Jumadil Akhir 1448 (Hijri)',
+                time: 'After Magrib • 7:00 p.m. to 11:00 p.m.',
+                venue: 'Ahmed Lawn, Opp. Dosti Planet North, Near Nayra Petrol Pump, Shibli Nagar, Mumbra, Thane-400612',
+                mapUrl: 'https://www.google.com/maps/place//data=!4m2!3m1!19sChIJyW6aVQC_5zsRwG-l493ErtE',
+                mapEmbed: 'https://maps.google.com/maps?q=Ahmed%20Wedding%20Lawn,%20Dosti%20Planet%20N%20Rd,%20Shibli%20Nagar,%20Mumbra,%20Thane&t=&z=15&ie=UTF8&iwloc=&output=embed',
+                monogram: 'H&M',
+                frontNames: 'Halima & Mazeen'
+            },
+            walima: {
+                host: 'Mr. Mehmood Usman SahiboIe',
+                inviteLine: 'Cordially invites you with family on the auspicious occasion of the Wedding Ceremony of',
+                person1: 'Mazeen',
+                person1Parent: '(S/o. Mr. Mehmood Usman SahiboIe)',
+                connector: '&',
+                person2: 'Halima',
+                person2Parent: '(D/o. Mr. Noor Mohammed Ansari)',
+                eventTitle: 'Walima Reception & Dinner',
+                date: 'SATURDAY | 28 | NOVEMBER, 2026',
+                hijri: '18 Jumadil Akhir 1448 (Hijri)',
+                time: 'After Magrib • 7:00 p.m. to 11:00 p.m.',
+                venue: 'Charminar Lawns, Near Kasbaah Garden & Restaurant, Mumbra Bypass Road, Sanjay Nagar, Mumbra, Thane-400612',
+                mapUrl: 'https://www.google.com/maps/place//data=!4m2!3m1!19sChIJ9U4uHE2_5zsR25T3IUEoEx0',
+                mapEmbed: 'https://maps.google.com/maps?q=Charminar%20Lawns,%20Mumbra%20Bypass%20Rd,%20Sanjay%20Nagar,%20Mumbra,%20Thane&t=&z=15&ie=UTF8&iwloc=&output=embed',
+                monogram: 'M&H',
+                frontNames: 'Mazeen & Halima'
+            }
+        };
+
+        // Toggle inline map preview on the card
+        function toggleMapPreview() {
+            const box = document.getElementById('map-preview-box');
+            const btn = document.getElementById('toggle-map-btn');
+            if (box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+                btn.innerHTML = '<i class="fa-regular fa-map text-amber-800"></i><span>Hide Map</span>';
+            } else {
+                box.classList.add('hidden');
+                btn.innerHTML = '<i class="fa-regular fa-map text-amber-800"></i><span>Show Map</span>';
+            }
+        }
+
+        // Switch between Nikah and Walima Cards
+        function switchCeremony(type) {
+            currentCeremony = type;
+            const data = ceremonyData[type];
+
+            document.getElementById('display-host').textContent = data.host;
+            document.getElementById('display-invite-line').textContent = data.inviteLine;
+            document.getElementById('display-person1').textContent = data.person1;
+            document.getElementById('display-person1-parent').textContent = data.person1Parent;
+            document.getElementById('display-connector').textContent = data.connector;
+            document.getElementById('display-person2').textContent = data.person2;
+            document.getElementById('display-person2-parent').textContent = data.person2Parent;
+            document.getElementById('display-event-title').textContent = data.eventTitle;
+            document.getElementById('display-date').textContent = data.date;
+            document.getElementById('display-hijri').textContent = data.hijri;
+            document.getElementById('display-time').textContent = data.time;
+            document.getElementById('display-venue').textContent = data.venue;
+            document.getElementById('display-map-link').href = data.mapUrl;
+            document.getElementById('venue-map-iframe').src = data.mapEmbed;
+            document.getElementById('seal-initials').textContent = data.monogram;
+            document.getElementById('envelope-monogram-names').textContent = data.frontNames;
+
+            // Update Toggle Button Styling
+            const nikahBtn = document.getElementById('btn-ceremony-nikah');
+            const walimaBtn = document.getElementById('btn-ceremony-walima');
+
+            if (type === 'nikah') {
+                nikahBtn.className = 'px-3.5 py-1 rounded-full text-[11px] uppercase tracking-wider font-semibold bg-amber-800 text-amber-50 shadow transition';
+                walimaBtn.className = 'px-3.5 py-1 rounded-full text-[11px] uppercase tracking-wider font-semibold text-amber-950/75 hover:text-amber-950 transition';
+            } else {
+                walimaBtn.className = 'px-3.5 py-1 rounded-full text-[11px] uppercase tracking-wider font-semibold bg-amber-800 text-amber-50 shadow transition';
+                nikahBtn.className = 'px-3.5 py-1 rounded-full text-[11px] uppercase tracking-wider font-semibold text-amber-950/75 hover:text-amber-950 transition';
+            }
+        }
+
+        // Generate ambient floating gold dust particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 28;
+            for (let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 4 + 1.5;
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}vw`;
+                p.style.animationDuration = `${Math.random() * 12 + 8}s`;
+                p.style.animationDelay = `${Math.random() * 10}s`;
+                container.appendChild(p);
+            }
+        }
+
+        // Open the 3D envelope & reveal card
+        function openEnvelope() {
+            if (isEnvelopeOpen) return;
+            isEnvelopeOpen = true;
+
+            const envelope = document.getElementById('envelope');
+            const tapHint = document.getElementById('tap-hint');
+            const frontLabel = document.getElementById('envelope-front-label');
+            const closeBtn = document.getElementById('close-env-btn');
+
+            envelope.classList.add('opened');
+            tapHint.style.opacity = '0';
+            frontLabel.style.opacity = '0';
+
+            setTimeout(() => {
+                closeBtn.classList.remove('hidden');
+                closeBtn.classList.add('flex');
+                // Subtle gold confetti burst when card slides out
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 45,
+                        spread: 65,
+                        origin: { y: 0.55 },
+                        colors: ['#d4af37', '#f3e5ab', '#ffffff', '#b8860b']
+                    });
+                }
+            }, 650);
+        }
+
+        // Reseal the envelope
+        function closeEnvelope() {
+            if (!isEnvelopeOpen) return;
+            isEnvelopeOpen = false;
+
+            const envelope = document.getElementById('envelope');
+            const tapHint = document.getElementById('tap-hint');
+            const frontLabel = document.getElementById('envelope-front-label');
+            const closeBtn = document.getElementById('close-env-btn');
+
+            envelope.classList.remove('opened');
+            closeBtn.classList.add('hidden');
+            closeBtn.classList.remove('flex');
+
+            setTimeout(() => {
+                tapHint.style.opacity = '1';
+                frontLabel.style.opacity = '1';
+            }, 600);
+        }
+
+        // Switch between Itinerary and RSVP inside the invitation card
+        function switchCardTab(tab) {
+            const eventsPanel = document.getElementById('panel-events');
+            const rsvpPanel = document.getElementById('panel-rsvp');
+            const rsvpSuccess = document.getElementById('rsvp-success');
+            const tabEvents = document.getElementById('tab-events');
+            const tabRsvp = document.getElementById('tab-rsvp');
+
+            if (tab === 'events') {
+                eventsPanel.classList.remove('hidden');
+                rsvpPanel.classList.add('hidden');
+                rsvpSuccess.classList.add('hidden');
+
+                tabEvents.className = 'px-4 py-1 rounded-full text-[11px] uppercase tracking-wider font-medium bg-amber-700 text-white shadow transition';
+                tabRsvp.className = 'px-4 py-1 rounded-full text-[11px] uppercase tracking-wider font-medium border border-amber-700/40 text-amber-900 hover:bg-amber-700/10 transition';
+            } else {
+                eventsPanel.classList.add('hidden');
+                rsvpPanel.classList.remove('hidden');
+                rsvpSuccess.classList.add('hidden');
+
+                tabRsvp.className = 'px-4 py-1 rounded-full text-[11px] uppercase tracking-wider font-medium bg-amber-700 text-white shadow transition';
+                tabEvents.className = 'px-4 py-1 rounded-full text-[11px] uppercase tracking-wider font-medium border border-amber-700/40 text-amber-900 hover:bg-amber-700/10 transition';
+            }
+        }
+
+        // Handle RSVP Form Submission
+        function handleRSVP(e) {
+            e.preventDefault();
+            const guestName = document.getElementById('rsvp-name').value.trim();
+            document.getElementById('panel-rsvp').classList.add('hidden');
+            document.getElementById('rsvp-thanks-title').textContent = `JazakAllah Khair, ${guestName}!`;
+            document.getElementById('rsvp-success').classList.remove('hidden');
+
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 55,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#d4af37', '#f3e5ab', '#10b981']
+                });
+            }
+        }
+
+        // Share Invitation via Native Share Sheet or Clipboard Fallback
+        async function shareInvite() {
+            const shareTitle = 'Halima & Mazeen — Nikah & Walima Invitation';
+            const shareText = `بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم\n` +
+                `You are cordially invited to the Wedding Celebrations of Halima & Mazeen:\n\n` +
+                `1. NIKAH (Nov 27, 2026) — Ahmed Lawn, Mumbra\n` +
+                `2. WALIMA (Nov 28, 2026) — Charminar Lawns, Mumbra`;
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: shareTitle,
+                        text: shareText,
+                        url: window.location.href
+                    });
+                    return;
+                } catch (err) {
+                    if (err.name === 'AbortError') return;
+                }
+            }
+            copyInviteLink();
+        }
+
+        // Copy Full Nikah & Walima Invitation Details to Clipboard
+        function copyInviteLink() {
+            const shareText = `بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم\n` +
+                `You are cordially invited to the Wedding Celebrations of Halima & Mazeen:\n\n` +
+                `1. NIKAH (Hosted by Mr. Noor Mohammed Ansari)\n` +
+                `Date: Friday, 27 Nov 2026 (17 Jumadil Akhir 1448 Hijri)\n` +
+                `Time: After Magrib, 7:00 PM – 11:00 PM\n` +
+                `Venue: Ahmed Lawn, Opp. Dosti Planet North, Near Nayra Petrol Pump, Shibli Nagar, Mumbra, Thane-400612\n` +
+                `Map: ${ceremonyData.nikah.mapUrl}\n\n` +
+                `2. WALIMA RECEPTION (Hosted by Mr. Mehmood Usman SahiboIe)\n` +
+                `Date: Saturday, 28 Nov 2026 (18 Jumadil Akhir 1448 Hijri)\n` +
+                `Time: After Magrib, 7:00 PM – 11:00 PM\n` +
+                `Venue: Charminar Lawns, Near Kasbaah Garden & Restaurant, Mumbra Bypass Road, Sanjay Nagar, Mumbra, Thane-400612\n` +
+                `Map: ${ceremonyData.walima.mapUrl}`;
+
+            const tempInput = document.createElement('textarea');
+            tempInput.value = shareText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast('Nikah & Walima details copied to clipboard!');
+        }
+
+        // Show Toast Notification
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2800);
+        }
+
+        // Initialize particles on load
+        window.onload = function() {
+            createParticles();
+        };
+    </script>
+</body>
+</html>
